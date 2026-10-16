@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔊 How is sound produced? Science Worksheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Comic Sans MS", "Microsoft YaHei", sans-serif;
+            background-color: #e8f7ff;
+            padding:16px;
+        }
+        .worksheet-card {
+            background: #ffffff;
+            border-radius:20px;
+            padding:24px;
+            box-shadow: 0 4px 12px #bde0f5;
+            max-width:1100px;
+            margin:0 auto 30px;
+        }
+        h1 {
+            color:#2563eb;
+            text-align:center;
+            font-size:26px;
+            margin:0 0 20px;
+        }
+        .input-line {
+            margin:14px 0;
+            font-size:18px;
+        }
+        .input-line input {
+            border:2px solid #93c5fd;
+            border-radius:12px;
+            padding:8px 12px;
+            font-size:18px;
+        }
+        table {
+            width:100%;
+            border-collapse: collapse;
+            margin:20px 0;
+        }
+        th, td {
+            border:2px solid #93c5fd;
+            padding:12px;
+            vertical-align:top;
+        }
+        th {
+            background-color:#bfdbfe;
+            color:#1e40af;
+            font-size:18px;
+        }
+        .canvas-wrap {
+            text-align:center;
+        }
+        canvas {
+            border:1px solid #60a5fa;
+            border-radius:8px;
+            background:#fff;
+            touch-action:none;
+        }
+        .canvas-buttons button {
+            background:#93c5fd;
+            border:none;
+            border-radius:8px;
+            padding:4px 8px;
+            margin:2px;
+            font-size:14px;
+        }
+        .radio-area label {
+            font-size:18px;
+            margin-right:16px;
+        }
+        .submit-btn {
+            background-color:#22c55e;
+            color:white;
+            font-size:20px;
+            border:none;
+            border-radius:14px;
+            padding:12px 32px;
+            display:block;
+            margin:24px auto;
+            cursor:pointer;
+        }
+        .submit-btn:hover {
+            background-color:#16a34a;
+        }
+        .teacher-panel {
+            max-width:1100px;
+            margin: 0 auto;
+            background:#f0fdf4;
+            border-radius:20px;
+            padding:24px;
+            /* 默认隐藏教师面板 */
+            display: none;
+        }
+        .submission-item {
+            background:#fff;
+            border-radius:16px;
+            padding:16px;
+            margin:12px 0;
+            border:2px solid #bbf7d0;
+        }
+        .save-img-btn {
+            background:#3b82f6;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:6px 12px;
+        }
+        .clear-all-btn {
+            background:#ef4444;
+            color:white;
+            border:none;
+            border-radius:8px;
+            padding:8px 16px;
+            margin-bottom:16px;
+        }
+        .teacher-lock-area{
+            max-width:1100px;
+            margin:0 auto 20px;
+            background:#fefce8;
+            border-radius:16px;
+            padding:16px;
+        }
+    </style>
+</head>
+<body>
+<div class="worksheet-card" id="studentWorksheet">
+    <h1>🔊 How is sound produced?</h1>
+
+    <div class="input-line">
+        Group (组别): <input type="text" id="groupInput" placeholder="Write your group number">
+    </div>
+
+    <div class="input-line">
+        Predict: Sound is produced by <input type="text" id="predictInput"> .
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Material</th>
+                <th>Method<br>(Draw your experiment here ✏️)</th>
+                <th>Result: sound produced?<br>(tick yes/no)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ===== Rubber band 3组实验 ===== -->
+            <tr>
+                <td rowspan="3"><strong>Rubber band</strong></td>
+                <td class="canvas-wrap">
+                    <canvas id="canvas1" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas1')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas1')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas1')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res1" value="yes"> Yes</label>
+                    <label><input type="radio" name="res1" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas2" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas2')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas2')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas2')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res2" value="yes"> Yes</label>
+                    <label><input type="radio" name="res2" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas3" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas3')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas3')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas3')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res3" value="yes"> Yes</label>
+                    <label><input type="radio" name="res3" value="no"> No</label>
+                </td>
+            </tr>
+
+            <!-- ===== Drum 3组实验 ===== -->
+            <tr>
+                <td rowspan="3"><strong>Drum</strong></td>
+                <td class="canvas-wrap">
+                    <canvas id="canvas4" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas4')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas4')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas4')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res4" value="yes"> Yes</label>
+                    <label><input type="radio" name="res4" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas5" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas5')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas5')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas5')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res5" value="yes"> Yes</label>
+                    <label><input type="radio" name="res5" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas6" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas6')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas6')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas6')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res6" value="yes"> Yes</label>
+                    <label><input type="radio" name="res6" value="no"> No</label>
+                </td>
+            </tr>
+
+            <!-- ===== Ruler 3组实验 ===== -->
+            <tr>
+                <td rowspan="3"><strong>Ruler</strong></td>
+                <td class="canvas-wrap">
+                    <canvas id="canvas7" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas7')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas7')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas7')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res7" value="yes"> Yes</label>
+                    <label><input type="radio" name="res7" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas8" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas8')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas8')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas8')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res8" value="yes"> Yes</label>
+                    <label><input type="radio" name="res8" value="no"> No</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="canvas-wrap">
+                    <canvas id="canvas9" width="220" height="140"></canvas>
+                    <div class="canvas-buttons">
+                        <button onclick="clearCanvas('canvas9')">🗑️ Clear</button>
+                        <button onclick="setPen('canvas9')">✏️ Pen</button>
+                        <button onclick="setEraser('canvas9')">🧽 Eraser</button>
+                    </div>
+                </td>
+                <td class="radio-area">
+                    <label><input type="radio" name="res9" value="yes"> Yes</label>
+                    <label><input type="radio" name="res9" value="no"> No</label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="input-line">
+        Conclusion: Sound is produced by <input type="text" id="conclusionInput"> .
+    </div>
+
+    <button class="submit-btn" onclick="submitWork()">✅ Submit 提交作业</button>
+</div>
+
+<!-- 教师解锁区域 -->
+<div class="teacher-lock-area">
+    <h3>🔐 Teacher access (Teacher only)</h3>
+    <input type="password" id="teacherPassInput" placeholder="Enter teacher password">
+    <button onclick="unlockTeacherPanel()">Unlock teacher dashboard</button>
+</div>
+
+<!-- ===== 教师端面板 默认隐藏 ===== -->
+<div class="teacher-panel" id="teacherPanel">
+    <h2>👩‍🏫 Teacher Dashboard 教师控制台</h2>
+    <button class="clear-all-btn" onclick="clearAllSubmissions()">🗑️ Clear all records</button>
+    <div id="submissionList"></div>
+</div>
+
+<script>
+// 教师密码，在这里修改
+const passcode = "teacher123";
+
+// 全部9块画布
+const canvasIds = ["canvas1","canvas2","canvas3","canvas4","canvas5","canvas6","canvas7","canvas8","canvas9"];
+const canvasStore = {};
+canvasIds.forEach(id=>{
+    const canvas = document.getElementById(id);
+    const ctx = canvas.getContext('2d');
+    canvasStore[id] = {ctx, isDrawing:false, mode:"pen"};
+
+    function startDraw(e){
+        const item = canvasStore[id];
+        item.isDrawing=true;
+        const pos = getCanvasPos(canvas,e);
+        item.ctx.beginPath();
+        item.ctx.moveTo(pos.x, pos.y);
+    }
+    function draw(e){
+        if(!canvasStore[id].isDrawing) return;
+        const item = canvasStore[id];
+        const pos = getCanvasPos(canvas,e);
+        item.ctx.lineWidth = 3;
+        if(item.mode === "pen"){
+            item.ctx.strokeStyle="#000000";
+        }else{
+            item.ctx.strokeStyle="#ffffff";
+            item.ctx.lineWidth=14;
+        }
+        item.ctx.lineTo(pos.x, pos.y);
+        item.ctx.stroke();
+    }
+    function stopDraw(){
+        canvasStore[id].isDrawing=false;
+    }
+    // 鼠标 + iPad触屏
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDraw);
+    canvas.addEventListener('mouseleave', stopDraw);
+    canvas.addEventListener('touchstart',(e)=>{
+        e.preventDefault();
+        const t = e.touches[0];
+        canvas.dispatchEvent(new MouseEvent('mousedown', {clientX:t.clientX, clientY:t.clientY}));
+    });
+    canvas.addEventListener('touchmove',(e)=>{
+        e.preventDefault();
+        const t = e.touches[0];
+        canvas.dispatchEvent(new MouseEvent('mousemove', {clientX:t.clientX, clientY:t.clientY}));
+    });
+    canvas.addEventListener('touchend',(e)=>{
+        e.preventDefault();
+        canvas.dispatchEvent(new MouseEvent('mouseup', {}));
+    });
+});
+
+function getCanvasPos(canvas, evt){
+    const rect = canvas.getBoundingClientRect();
+    return {x: evt.clientX - rect.left, y: evt.clientY - rect.top};
+}
+function clearCanvas(id){
+    const canvas = document.getElementById(id);
+    canvas.getContext('2d').clearRect(0,0,canvas.width, canvas.height);
+}
+function setPen(id){ canvasStore[id].mode="pen"; }
+function setEraser(id){ canvasStore[id].mode="eraser"; }
+
+let submissions = [];
+
+//解锁教师面板
+function unlockTeacherPanel(){
+    const inputPw = document.getElementById("teacherPassInput").value;
+    if(inputPw === passcode){
+        document.getElementById("teacherPanel").style.display="block";
+        renderTeacherPanel();
+        alert("✅ Teacher panel unlocked.");
+    }else{
+        alert("❌ Wrong password.");
+    }
+}
+
+function submitWork(){
+    const group = document.getElementById("groupInput").value.trim();
+    const predict = document.getElementById("predictInput").value.trim();
+    const conclusion = document.getElementById("conclusionInput").value.trim();
+
+    if(!group){
+        alert("Please fill in your Group! 请填写组别");
+        return;
+    }
+
+    // 获取9组单选结果
+    const res1 = document.querySelector('input[name="res1"]:checked')?.value || "Not selected";
+    const res2 = document.querySelector('input[name="res2"]:checked')?.value || "Not selected";
+    const res3 = document.querySelector('input[name="res3"]:checked')?.value || "Not selected";
+    const res4 = document.querySelector('input[name="res4"]:checked')?.value || "Not selected";
+    const res5 = document.querySelector('input[name="res5"]:checked')?.value || "Not selected";
+    const res6 = document.querySelector('input[name="res6"]:checked')?.value || "Not selected";
+    const res7 = document.querySelector('input[name="res7"]:checked')?.value || "Not selected";
+    const res8 = document.querySelector('input[name="res8"]:checked')?.value || "Not selected";
+    const res9 = document.querySelector('input[name="res9"]:checked')?.value || "Not selected";
+
+    // 画布转图片
+    const img1 = document.getElementById("canvas1").toDataURL("image/png");
+    const img2 = document.getElementById("canvas2").toDataURL("image/png");
+    const img3 = document.getElementById("canvas3").toDataURL("image/png");
+    const img4 = document.getElementById("canvas4").toDataURL("image/png");
+    const img5 = document.getElementById("canvas5").toDataURL("image/png");
+    const img6 = document.getElementById("canvas6").toDataURL("image/png");
+    const img7 = document.getElementById("canvas7").toDataURL("image/png");
+    const img8 = document.getElementById("canvas8").toDataURL("image/png");
+    const img9 = document.getElementById("canvas9").toDataURL("image/png");
+
+    const submissionData = {
+        group, predict, conclusion,
+        res1,res2,res3,res4,res5,res6,res7,res8,res9,
+        img1,img2,img3,img4,img5,img6,img7,img8,img9,
+        time: new Date().toLocaleString()
+    };
+    submissions.push(submissionData);
+    alert(`✅ Group ${group} submitted successfully!`);
+
+    // 清空表单
+    document.getElementById("groupInput").value="";
+    document.getElementById("predictInput").value="";
+    document.getElementById("conclusionInput").value="";
+    document.querySelectorAll('input[type="radio"]').forEach(r=>r.checked=false);
+    canvasIds.forEach(id=>clearCanvas(id));
+}
+
+function renderTeacherPanel(){
+    const wrap = document.getElementById("submissionList");
+    wrap.innerHTML = "";
+    submissions.forEach((item, idx)=>{
+        const div = document.createElement("div");
+        div.className="submission-item";
+        div.innerHTML=`
+            <h3>📝 Group ${item.group} | ${item.time}</h3>
+            <p><strong>Predict:</strong> ${item.predict}</p>
+            <p><strong>Rubber band 1:</strong> ${item.res1} <img src="${item.img1}" style="height:100px;"></p>
+            <p><strong>Rubber band 2:</strong> ${item.res2} <img src="${item.img2}" style="height:100px;"></p>
+            <p><strong>Rubber band 3:</strong> ${item.res3} <img src="${item.img3}" style="height:100px;"></p>
+            <p><strong>Drum 1:</strong> ${item.res4} <img src="${item.img4}" style="height:100px;"></p>
+            <p><strong>Drum 2:</strong> ${item.res5} <img src="${item.img5}" style="height:100px;"></p>
+            <p><strong>Drum 3:</strong> ${item.res6} <img src="${item.img6}" style="height:100px;"></p>
+            <p><strong>Ruler 1:</strong> ${item.res7} <img src="${item.img7}" style="height:100px;"></p>
+            <p><strong>Ruler 2:</strong> ${item.res8} <img src="${item.img8}" style="height:100px;"></p>
+            <p><strong>Ruler 3:</strong> ${item.res9} <img src="${item.img9}" style="height:100px;"></p>
+            <p><strong>Conclusion:</strong> ${item.conclusion}</p>
+            <button class="save-img-btn" onclick="saveSingleWork(${idx})">💾 Save whole worksheet as PNG</button>
+        `;
+        wrap.appendChild(div);
+    })
+}
+
+function saveSingleWork(index){
+    const data = submissions[index];
+    const tempDiv = document.createElement('div');
+    tempDiv.style.padding="20px";
+    tempDiv.style.background="#fff";
+    tempDiv.innerHTML=`
+        <h2>How is sound produced? | Group ${data.group}</h2>
+        <p>Predict: ${data.predict}</p>
+        <h4>Rubber band</h4>
+        <p>Exp1: ${data.res1}</p><img src="${data.img1}" style="height:120px;">
+        <p>Exp2: ${data.res2}</p><img src="${data.img2}" style="height:120px;">
+        <p>Exp3: ${data.res3}</p><img src="${data.img3}" style="height:120px;">
+        <h4>Drum</h4>
+        <p>Exp1: ${data.res4}</p><img src="${data.img4}" style="height:120px;">
+        <p>Exp2: ${data.res5}</p><img src="${data.img5}" style="height:120px;">
+        <p>Exp3: ${data.res6}</p><img src="${data.img6}" style="height:120px;">
+        <h4>Ruler</h4>
+        <p>Exp1: ${data.res7}</p><img src="${data.img7}" style="height:120px;">
+        <p>Exp2: ${data.res8}</p><img src="${data.img8}" style="height:120px;">
+        <p>Exp3: ${data.res9}</p><img src="${data.img9}" style="height:120px;">
+        <p>Conclusion: ${data.conclusion}</p>
+        <p>Submitted: ${data.time}</p>
+    `;
+    document.body.appendChild(tempDiv);
+    html2canvas(tempDiv).then(canvas=>{
+        const a = document.createElement("a");
+        a.download = `Group-${data.group}-sound-worksheet.png`;
+        a.href = canvas.toDataURL("image/png");
+        a.click();
+        document.body.removeChild(tempDiv);
+    })
+}
+
+function clearAllSubmissions(){
+    if(confirm("Are you sure to delete all group submissions?")){
+        submissions = [];
+        renderTeacherPanel();
+    }
+}
+</script>
+</body>
+</html>
